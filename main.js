@@ -21,6 +21,10 @@ const audio = $('#audio');
 const cd = $('.cd');
 const playBtn = $('.btn-toggle-play');
 const progress = $('#progress');
+const nextBtn = $('.btn-next');
+const prevBtn = $('.btn-prev');
+const randomBtn = $('.btn-random');
+const repeatBtn = $('.btn-repeat');
 
 
 
@@ -30,7 +34,7 @@ const app = {
     isPlaying: false,
     songs: [
         {
-            name: 'Du cho tan the',
+            name: 'Dù Cho Tận Thế',
             singer: 'Erik',
             path: './assets/music/Dù Cho Tận Thế.mp3',
             image: './assets/img/Du cho tan the.jpg'
@@ -48,9 +52,9 @@ const app = {
             image: './assets/img/Dung lam trai tim anh dau.jpg'
         },
         {
-            name: 'Ngay dau sau chia tay',
+            name: 'Ngày Đầu Sau Chia Tay',
             singer: 'Duc Phuc',
-            path: './assets/music/Ngay Đầu Sau Chia Tay.mp3',
+            path: './assets/music/Ngày Đầu Sau Chia Tay.mp3',
             image: './assets/img/Ngay dau sau chia tay.jpg'
         },
         {
@@ -112,16 +116,27 @@ const app = {
             }
         }
 
+        // Xử lý CD quay/dừng
+        const cdThumbAnimate = cdThumb.animate([
+            { transform: 'rotate(360deg)' }
+        ], {
+            duration: 10000, //10 seconds
+            iterations: Infinity
+        })
+        cdThumbAnimate.pause();
+
         // Khi bài hát được play
         audio.onplay = function () {
             app.isPlaying = true;
             player.classList.add('playing');
+            cdThumbAnimate.play();
         }
 
         // Khi bài hát bị pause
         audio.onpause = function () {
             app.isPlaying = false;
             player.classList.remove('playing');
+            cdThumbAnimate.pause();
         }
 
         // Khi tiến độ bài hát thay đổi
@@ -138,6 +153,20 @@ const app = {
             audio.currentTime = seekTime;
         }
 
+        // Xử lý khi next bài hát
+        nextBtn.onclick = function () {
+            app.nextSong();
+            audio.play();
+            app.render();
+        }
+
+        // Xử lý khi previus bài hát
+        prevBtn.onclick = function () {
+            app.preSong();
+            audio.play();
+            app.render();
+        }
+
     },
 
     loadCurrentSong: function () {
@@ -147,6 +176,24 @@ const app = {
         audio.src = this.currentSong.path;
 
     },
+    // Next Song
+    nextSong: function () {
+        this.currentIndex++;
+        if (this.currentIndex >= this.songs.length) {
+            app.currentIndex = 0;
+        }
+        this.loadCurrentSong();
+    },
+
+    // Previus Song
+    preSong: function () {
+        this.currentIndex--;
+        if (this.currentIndex < 0) {
+            app.currentIndex = this.songs.length - 1;
+        }
+        this.loadCurrentSong();
+    },
+
     start: function () {
         // Định nghĩa các thuộc tính cho object
         this.defineProperties();
