@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: #1e1e2f;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .music-player {
+    background: #2a2a40;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 300px;
+  }
+  
+  .cover img {
+    width: 100%;
+    border-radius: 15px;
+  }
+  
+  .info {
+    margin: 1rem 0;
+  }
+  
+  .title {
+    font-size: 1.4rem;
+  }
+  
+  .artist {
+    font-size: 1rem;
+    color: #aaa;
+    margin-top: 0.3rem;
+  }
+  
+  .progress-container {
+    margin: 1rem 0;
+  }
+  
+  .progress {
+    background: #444;
+    height: 6px;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    width: 40%;
+    height: 100%;
+    background: #f72585;
+    transition: width 0.3s;
+  }
+  
+  .time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #bbb;
+    margin-top: 0.3rem;
+  }
+  
+  .controls {
+    margin-top: 1rem;
+  }
+  
+  .controls button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .controls button:hover {
+    color: #f72585;
+  }
+  
