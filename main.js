@@ -14,6 +14,12 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const heading = $('header h2');
+const cdThumb = $('.cd-thumb');
+const audio = $('#audio');
+const cd = $('.cd');
+
+
 
 
 const app = {
@@ -52,8 +58,6 @@ const app = {
         }
     ],
 
-
-
     render: function () {
         const htmls = this.songs.map((song) => {
             return `
@@ -83,7 +87,6 @@ const app = {
     },
 
     handleEvents: function () {
-        const cd = $('.cd');
         const cdWidth = cd.offsetWidth;
 
         document.onscroll = function () {
@@ -96,12 +99,25 @@ const app = {
             console.log(newCdWidth)
         }
     },
+
+    loadCurrentSong: function () {
+
+        heading.textContent = this.currentSong.name;
+        cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
+        audio.src = this.currentSong.path;
+        
+    },
     start: function () {
+        // Định nghĩa các thuộc tính cho object
         this.defineProperties();
+
+        // Lắng nghe và xử lí các sự kiện
         this.handleEvents();
 
+        // Tải thông tin bài hát đầu tiên vào UI khi chạy ứng dụng
+        this.loadCurrentSong();
 
-
+        // Render ra danh sách bài hát (playlist)
         this.render();
     }
 }
