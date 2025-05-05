@@ -14,7 +14,11 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+
+
 const app = {
+    currentIndex: 0,
+
     songs: [
         {
             name: 'Du cho tan the',
@@ -47,11 +51,57 @@ const app = {
             image: './assets/img/Phep mau.jpg'
         }
     ],
-    render: function() {
-        
+
+
+
+    render: function () {
+        const htmls = this.songs.map((song) => {
+            return `
+                <div class="song">
+                    <div class="thumb" 
+                        style="background-image: url('${song.image}')">
+                    </div>
+                    <div class="body">
+                        <h3 class="title">${song.name}</h3>
+                        <p class="author">${song.singer}</p>
+                    </div>
+                    <div class="option">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+            `
+        })
+        $('.playlist').innerHTML = htmls.join('');
     },
 
-    start: function() {
+    defineProperties: function () {
+        Object.defineProperty(this, 'currentSong', {
+            get: function () {
+                return this.songs[this.currentIndex];
+            }
+        })
+    },
+
+    handleEvents: function () {
+        const cd = $('.cd');
+        const cdWidth = cd.offsetWidth;
+
+        document.onscroll = function () {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const newCdWidth = cdWidth - scrollTop;
+
+            cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
+            cd.style.opacity = newCdWidth / cdWidth;
+
+            console.log(newCdWidth)
+        }
+    },
+    start: function () {
+        this.defineProperties();
+        this.handleEvents();
+
+
+
         this.render();
     }
 }
