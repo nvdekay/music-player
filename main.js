@@ -14,17 +14,19 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const player = $('.player');
 const heading = $('header h2');
 const cdThumb = $('.cd-thumb');
 const audio = $('#audio');
 const cd = $('.cd');
+const playBtn = $('.btn-toggle-play');
 
 
 
 
 const app = {
     currentIndex: 0,
-
+    isPlaying: false,
     songs: [
         {
             name: 'Du cho tan the',
@@ -89,6 +91,7 @@ const app = {
     handleEvents: function () {
         const cdWidth = cd.offsetWidth;
 
+        // Xử lý khi scroll playlist (phóng to/thu nhỏ cd)
         document.onscroll = function () {
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
             const newCdWidth = cdWidth - scrollTop;
@@ -98,6 +101,27 @@ const app = {
 
             console.log(newCdWidth)
         }
+
+        // Xử lý khi click vào play
+        playBtn.onclick = function () {
+            if (app.isPlaying) {
+                audio.pause();
+            } else {
+                audio.play();
+            }
+        }
+
+        // Khi bài hát được play
+        audio.onplay = function () {
+            app.isPlaying = true;
+            player.classList.add('playing');
+        }
+
+        // Khi bài hát bị pause
+        audio.onpause = function () {
+            app.isPlaying = false;
+            player.classList.remove('playing');
+        }
     },
 
     loadCurrentSong: function () {
@@ -105,7 +129,7 @@ const app = {
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
-        
+
     },
     start: function () {
         // Định nghĩa các thuộc tính cho object
