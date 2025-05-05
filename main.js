@@ -32,6 +32,7 @@ const repeatBtn = $('.btn-repeat');
 const app = {
     currentIndex: 0,
     isPlaying: false,
+    isRandom: false,
     songs: [
         {
             name: 'Dù Cho Tận Thế',
@@ -104,7 +105,6 @@ const app = {
             cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
             cd.style.opacity = newCdWidth / cdWidth;
 
-            console.log(newCdWidth)
         }
 
         // Xử lý khi click vào play
@@ -155,16 +155,33 @@ const app = {
 
         // Xử lý khi next bài hát
         nextBtn.onclick = function () {
-            app.nextSong();
+            if (randomBtn.classList.contains('active')) {
+                app.randomSong();
+            } else {
+                app.nextSong();
+            }
             audio.play();
-            app.render();
         }
 
         // Xử lý khi previus bài hát
         prevBtn.onclick = function () {
-            app.preSong();
+            if (randomBtn.classList.contains('active')) {
+                app.randomSong();
+            } else {
+                app.preSong();
+            }
             audio.play();
-            app.render();
+        }
+
+        // Xử lý bật/tắt random bài hát
+        randomBtn.onclick = function (e) {
+            app.isRandom = !app.isRandom;
+            randomBtn.classList.toggle('active', app.isRandom);
+        }
+
+        // Xử lý next song khi audio ended
+        audio.onended = function () {
+            nextBtn.click();
         }
 
     },
@@ -192,6 +209,16 @@ const app = {
             app.currentIndex = this.songs.length - 1;
         }
         this.loadCurrentSong();
+    },
+
+    randomSong: function () {
+        var newIndex;
+        do {
+            newIndex = Math.floor(Math.random() * this.songs.length);
+        } while (newIndex === this.currentIndex);
+        this.currentIndex = newIndex;
+        this.loadCurrentSong();
+        console.log(newIndex);
     },
 
     start: function () {
