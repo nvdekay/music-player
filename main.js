@@ -41,28 +41,52 @@ const app = {
             image: './assets/img/Du cho tan the.jpg'
         },
         {
-            name: 'Dat nuoc tron niem vui',
-            singer: 'Ta Minh Tam',
+            name: 'Đất Nước Trọn Niềm Vui',
+            singer: 'Tạ Minh Tâm',
             path: './assets/music/Đất Nước Trọn Niềm Vui.mp3',
             image: './assets/img/Dat nuoc tron niem vui.jpg'
         },
         {
-            name: 'Dung lam trai tim anh dau',
-            singer: 'Son Tung M-TP',
+            name: 'Đừng Làm Trái Tim Anh Đau',
+            singer: 'Sơn Tùng M-TP',
             path: './assets/music/Đừng Làm Trái Tim Anh Đau.mp3',
             image: './assets/img/Dung lam trai tim anh dau.jpg'
         },
         {
             name: 'Ngày Đầu Sau Chia Tay',
-            singer: 'Duc Phuc',
+            singer: 'Đức Phúc',
             path: './assets/music/Ngày Đầu Sau Chia Tay.mp3',
             image: './assets/img/Ngay dau sau chia tay.jpg'
         },
         {
-            name: 'Phep mau',
-            singer: 'Minh Toc',
+            name: 'Phép Màu',
+            singer: 'Minh Tốc',
             path: './assets/music/Phép Màu.mp3',
             image: './assets/img/Phep mau.jpg'
+        },
+        {
+            name: 'Tháp Drill Tự Do',
+            singer: 'MCK',
+            path: './assets/music/Tháp Drill Tự Do.mp3',
+            image: './assets/img/Thap drill tu do.jpg'
+        },
+        {
+            name: 'Đơn Giản Anh Yêu Em',
+            singer: 'Hồ Quốc Việt',
+            path: './assets/music/Đơn Giản Anh Yêu Em.mp3',
+            image: './assets/img/Don gian anh yeu em.jpg'
+        },
+        {
+            name: 'Bộ Tộc Cùng Già',
+            singer: 'Thiện Hưng',
+            path: './assets/music/Bộ Tộc Cùng Già.mp3',
+            image: './assets/img/Bo toc cung gia.jpg'
+        },
+        {
+            name: 'Lễ Đường',
+            singer: 'Kai Đinh',
+            path: './assets/music/Lễ Đường.mp3',
+            image: './assets/img/Le duong.jpg'
         }
     ],
 
