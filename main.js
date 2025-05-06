@@ -27,12 +27,11 @@ const randomBtn = $('.btn-random');
 const repeatBtn = $('.btn-repeat');
 
 
-
-
 const app = {
     currentIndex: 0,
     isPlaying: false,
     isRandom: false,
+    isRepeat: false,
     songs: [
         {
             name: 'Dù Cho Tận Thế',
@@ -67,9 +66,9 @@ const app = {
     ],
 
     render: function () {
-        const htmls = this.songs.map((song) => {
+        const htmls = this.songs.map((song, index) => {
             return `
-                <div class="song">
+                <div class="song ${index === this.currentIndex ? 'active' : ''}">
                     <div class="thumb" 
                         style="background-image: url('${song.image}')">
                     </div>
@@ -161,6 +160,8 @@ const app = {
                 app.nextSong();
             }
             audio.play();
+            app.render();
+            app.scrollToActiveSong();
         }
 
         // Xử lý khi previus bài hát
@@ -171,6 +172,8 @@ const app = {
                 app.preSong();
             }
             audio.play();
+            app.render();
+            app.scrollToActiveSong();
         }
 
         // Xử lý bật/tắt random bài hát
@@ -179,11 +182,29 @@ const app = {
             randomBtn.classList.toggle('active', app.isRandom);
         }
 
-        // Xử lý next song khi audio ended
+        // Xử lý next / repeat song khi audio ended
         audio.onended = function () {
-            nextBtn.click();
+            if (repeatBtn.classList.contains('active')) {
+                audio.play();
+            } else {
+                nextBtn.click();
+            }
         }
 
+        // Xử lý repeat bài hát     
+        repeatBtn.onclick = function (e) {
+            app.isRepeat = !app.isRepeat;
+            repeatBtn.classList.toggle('active', app.isRepeat);
+        }
+    },
+
+    scrollToActiveSong: function () {
+        setTimeout(() => {
+            $('.song.active').scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            })
+        }, 300)
     },
 
     loadCurrentSong: function () {
@@ -191,8 +212,8 @@ const app = {
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
-
     },
+
     // Next Song
     nextSong: function () {
         this.currentIndex++;
