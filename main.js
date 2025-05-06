@@ -25,6 +25,7 @@ const nextBtn = $('.btn-next');
 const prevBtn = $('.btn-prev');
 const randomBtn = $('.btn-random');
 const repeatBtn = $('.btn-repeat');
+const playlist = $('.playlist');
 
 
 const app = {
@@ -68,7 +69,7 @@ const app = {
     render: function () {
         const htmls = this.songs.map((song, index) => {
             return `
-                <div class="song ${index === this.currentIndex ? 'active' : ''}">
+                <div class="song ${index === this.currentIndex ? 'active' : ''}" data-index="${index}">
                     <div class="thumb" 
                         style="background-image: url('${song.image}')">
                     </div>
@@ -82,7 +83,7 @@ const app = {
                 </div>
             `
         })
-        $('.playlist').innerHTML = htmls.join('');
+        playlist.innerHTML = htmls.join('');
     },
 
     defineProperties: function () {
@@ -196,8 +197,27 @@ const app = {
             app.isRepeat = !app.isRepeat;
             repeatBtn.classList.toggle('active', app.isRepeat);
         }
-    },
 
+        // Xử lý khi click vào playlist
+        playlist.onclick = function (e) {
+            const songNode = e.target.closest('.song:not(.active)');
+            // Xử lý khi click vào bài hát trong playlist
+            if (songNode || !e.target.closest('.option')) {
+                // Xử lý khi click vào bài hát trong playlist
+                if (songNode) {
+                    app.currentIndex = Number(songNode.dataset.index);
+                    app.loadCurrentSong();
+                    app.render();
+                    audio.play();
+                }
+                // Xử lý khi click vào option
+                if (e.target.closest('.option')) {
+
+                }
+            }
+        }
+
+    },
     scrollToActiveSong: function () {
         setTimeout(() => {
             $('.song.active').scrollIntoView({
