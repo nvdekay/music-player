@@ -78,6 +78,18 @@ header h2 {
   margin: auto;
 }
 
+.copyright {
+  bottom: 120px;
+  right: 20px;
+  position: absolute;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.copyright .author {
+  color: var(--primary-color);
+}
+
 /* CONTROL */
 .control {
   display: flex;
@@ -142,6 +154,7 @@ header h2 {
   padding: 8px 16px;
   border-radius: 5px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .song.active {
